@@ -11,8 +11,23 @@ const App = () => {
     "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.",
   ];
+  let initial = Object.assign(
+    {},
+    ...anecdotes.map((x) => ({ [anecdotes.indexOf(x)]: 0 }))
+  );
 
   const [selected, setSelected] = useState(0);
+  const [points, setPoints] = useState(initial);
+
+  const handleVote = (num) => {
+    const voting = () => {
+      const newPoints = { ...points };
+      newPoints[num] += 1;
+      setPoints(newPoints);
+    };
+    return voting;
+  };
+
   const randSelect = () => {
     let randi = Math.floor(Math.random() * anecdotes.length);
     setSelected(randi);
@@ -21,6 +36,8 @@ const App = () => {
   return (
     <div>
       <p>{anecdotes[selected]}</p>
+      <p>This anecdote has {points[selected]} votes</p>
+      <button onClick={handleVote(selected)}>vote</button>
       <button onClick={randSelect}>next anecdote</button>
     </div>
   );
