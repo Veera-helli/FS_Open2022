@@ -11,7 +11,7 @@ const App = () => {
     "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.",
   ];
-  let initial = Object.assign(
+  const initial = Object.assign(
     {},
     ...anecdotes.map((x) => ({ [anecdotes.indexOf(x)]: 0 }))
   );
@@ -28,6 +28,12 @@ const App = () => {
     return voting;
   };
 
+  const maxVotesAnecdote = () => {
+    return anecdotes[
+      Object.values(points).indexOf(Math.max(...Object.values(points)))
+    ];
+  };
+
   const randSelect = () => {
     let randi = Math.floor(Math.random() * anecdotes.length);
     setSelected(randi);
@@ -35,10 +41,13 @@ const App = () => {
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>This anecdote has {points[selected]} votes</p>
       <button onClick={handleVote(selected)}>vote</button>
       <button onClick={randSelect}>next anecdote</button>
+      <h1>Anecdote with most votes</h1>
+      <p>{maxVotesAnecdote()}</p>
     </div>
   );
 };
