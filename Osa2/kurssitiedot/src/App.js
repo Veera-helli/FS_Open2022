@@ -29,12 +29,10 @@ const Content = (props) => {
 const Total = (props) => {
   return (
     <div>
-      <p>
-        Number of exercises{" "}
-        {props.parts[0].exercises +
-          props.parts[1].exercises +
-          props.parts[2].exercises}
-      </p>
+      <h3>
+        Total of exercises{" "}
+        {props.parts.map((part) => part.exercises).reduce((a, b) => a + b, 0)}
+      </h3>
     </div>
   );
 };
@@ -47,6 +45,9 @@ const Course = (props) => {
         {props.course.parts.map((part) => (
           <Part part={part} key={part.id} />
         ))}
+      </div>
+      <div>
+        <Total parts={props.course.parts} />
       </div>
     </div>
   );
@@ -71,6 +72,11 @@ const App = () => {
         name: "State of a component",
         exercises: 14,
         id: 3,
+      },
+      {
+        name: "State of a thing",
+        exercises: 10,
+        id: 4,
       },
     ],
   };
