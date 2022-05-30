@@ -29,16 +29,16 @@ const App = () => {
       ],
     },
     {
-      name: "Node.js",
+      name: "Fundamentals of AI",
       id: 2,
       parts: [
         {
-          name: "Routing",
+          name: "Ethics",
           exercises: 3,
           id: 1,
         },
         {
-          name: "Middlewares",
+          name: "AI Basics",
           exercises: 7,
           id: 2,
         },
