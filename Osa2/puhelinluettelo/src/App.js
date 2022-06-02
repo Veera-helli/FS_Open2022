@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import nameService from "./services/persons";
-
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
@@ -32,6 +31,17 @@ const App = () => {
     setFilter(event.target.value);
   };
 
+  const clearInputs = () => {
+    setNewName("");
+    setNewNumber("");
+  };
+
+  const messageTimeout = () => {
+    setTimeout(() => {
+      setMessage(null);
+    }, 3000);
+  };
+
   const addData = (event) => {
     event.preventDefault();
     const nameObject = {
@@ -55,42 +65,30 @@ const App = () => {
                 person.id !== nameId ? person : returnedName
               )
             );
-            console.log("replaced number");
             setMessageClass("notif");
             setMessage(`Updated ${newName}`);
-            setTimeout(() => {
-              setMessage(null);
-            }, 3000);
-            setNewName("");
-            setNewNumber("");
+            messageTimeout();
+            clearInputs();
           })
-          .catch((error) => {
+          .catch(() => {
+            setPersons(persons.filter((n) => n.id !== nameId));
             setMessage(
               `Information of '${newName}' was already removed from server`
             );
             setMessageClass("delete");
-            setTimeout(() => {
-              setMessage(null);
-            }, 5000);
-            setPersons(persons.filter((n) => n.id !== nameId));
-            setNewName("");
-            setNewNumber("");
+            messageTimeout();
+            clearInputs();
           });
       }
     } else {
       // Add new name to phonebook
       nameService.create(nameObject).then((returnedName) => {
         setPersons([...persons, returnedName]);
-        setNewName("");
-        setNewNumber("");
         setMessageClass("notif");
         setMessage(`Added ${newName}`);
-        setTimeout(() => {
-          setMessage(null);
-        }, 3000);
+        messageTimeout();
+        clearInputs();
       });
-
-      console.log("new name added");
     }
   };
 
@@ -104,12 +102,10 @@ const App = () => {
       nameService.nameDelete(id);
       const name = persons.find((n) => n.id === id).name;
       console.log(`deleting ${name}`);
+      setPersons(persons.filter((n) => n.id !== id));
       setMessageClass("delete");
       setMessage(`Deleted ${name}`);
-      setPersons(persons.filter((n) => n.id !== id));
-      setTimeout(() => {
-        setMessage(null);
-      }, 2000);
+      messageTimeout();
     }
   };
 
