@@ -4,12 +4,15 @@ import nameService from "./services/persons";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageClass, setMessageClass] = useState("");
 
   useEffect(() => {
     nameService.getAll().then((initialPersons) => {
@@ -18,17 +21,14 @@ const App = () => {
   }, []);
 
   const handleNameChange = (event) => {
-    //console.log(event.target.value);
     setNewName(event.target.value);
   };
 
   const handleNumberChange = (event) => {
-    //console.log(event.target.value);
     setNewNumber(event.target.value);
   };
 
   const handleFilterChange = (event) => {
-    //console.log(event.target.value);
     setFilter(event.target.value);
   };
 
@@ -54,6 +54,11 @@ const App = () => {
             )
           );
           console.log("replaced number");
+          setMessageClass("notif");
+          setMessage(`Updated ${newName}`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 3000);
           setNewName("");
           setNewNumber("");
         });
@@ -64,7 +69,13 @@ const App = () => {
         setPersons([...persons, returnedName]);
         setNewName("");
         setNewNumber("");
+        setMessageClass("notif");
+        setMessage(`Added ${newName}`);
+        setTimeout(() => {
+          setMessage(null);
+        }, 3000);
       });
+
       console.log("new name added");
     }
   };
@@ -77,14 +88,21 @@ const App = () => {
       )
     ) {
       nameService.nameDelete(id);
-      console.log(`deleting ${persons.find((n) => n.id === id).name}`);
+      const name = persons.find((n) => n.id === id).name;
+      console.log(`deleting ${name}`);
+      setMessageClass("delete");
+      setMessage(`Deleted ${name}`);
       setPersons(persons.filter((n) => n.id !== id));
+      setTimeout(() => {
+        setMessage(null);
+      }, 2000);
     }
   };
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} classType={messageClass} />
       <Filter filter={filter} handler={handleFilterChange} />
       <h2>Add New</h2>
       <PersonForm
