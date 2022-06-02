@@ -21,11 +21,7 @@ const FilterResult = (props) => {
   );
 
   if (filtered.length > 10) {
-    return (
-      <div>
-        <p>Too many matches. Specify another filter.</p>
-      </div>
-    );
+    return <p>Too many matches. Specify another filter.</p>;
   } else if (10 > filtered.length && 1 < filtered.length) {
     return (
       <div>
@@ -37,20 +33,16 @@ const FilterResult = (props) => {
   } else if (1 === filtered.length) {
     return <Country country={filtered[0]} api_key={props.api_key} />;
   } else {
-    return (
-      <div>
-        <p>No countries found.</p>
-      </div>
-    );
+    return <p>No countries found.</p>;
   }
 };
 
 const Filter = (props) => {
   return (
     <form>
-      <div>
+      <p>
         Find countries: <input value={props.filter} onChange={props.handler} />
-      </div>
+      </p>
       <FilterResult {...props} />
     </form>
   );

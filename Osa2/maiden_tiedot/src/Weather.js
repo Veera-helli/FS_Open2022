@@ -16,7 +16,6 @@ const Weather = (props) => {
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${api_key}`
       )
       .then((response) => {
-        console.log(response.data);
         setIcon(response.data.weather[0].icon);
         setTemp(response.data.main.temp);
         setWind(response.data.wind.speed);
