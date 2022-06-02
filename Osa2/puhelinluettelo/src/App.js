@@ -1,67 +1,9 @@
 import { useState, useEffect } from "react";
 import nameService from "./services/persons";
 
-const Filter = (props) => {
-  return (
-    <div>
-      <p>
-        Filter for names shown with{" "}
-        <input value={props.filter} onChange={props.handler} />
-      </p>
-    </div>
-  );
-};
-
-const PersonForm = (props) => {
-  return (
-    <div>
-      <form onSubmit={props.addData}>
-        <div>
-          name:{" "}
-          <input value={props.newName} onChange={props.handleNameChange} />
-        </div>
-        <br />
-        <div>
-          number:{" "}
-          <input value={props.newNumber} onChange={props.handleNumberChange} />
-        </div>
-
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-    </div>
-  );
-};
-
-const Persons = (props) => {
-  return (
-    <div>
-      {props.persons
-        .filter((person) => person.name.toLowerCase().includes(props.filter))
-        .map((person) => (
-          <Person
-            person={person}
-            key={person.name}
-            deleteName={props.deleteName}
-          />
-        ))}
-    </div>
-  );
-};
-
-const Person = (props) => {
-  return (
-    <div>
-      <p>
-        {props.person.name} {props.person.number}{" "}
-        <button onClick={() => props.deleteName(props.person.id)}>
-          delete
-        </button>
-      </p>
-    </div>
-  );
-};
+import Filter from "./components/Filter";
+import PersonForm from "./components/PersonForm";
+import Persons from "./components/Persons";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
