@@ -47,21 +47,35 @@ const App = () => {
         )
       ) {
         const nameId = persons.find((p) => p.name === newName).id;
-        nameService.update(nameId, nameObject).then((returnedName) => {
-          setPersons(
-            persons.map((person) =>
-              person.id !== nameId ? person : returnedName
-            )
-          );
-          console.log("replaced number");
-          setMessageClass("notif");
-          setMessage(`Updated ${newName}`);
-          setTimeout(() => {
-            setMessage(null);
-          }, 3000);
-          setNewName("");
-          setNewNumber("");
-        });
+        nameService
+          .update(nameId, nameObject)
+          .then((returnedName) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== nameId ? person : returnedName
+              )
+            );
+            console.log("replaced number");
+            setMessageClass("notif");
+            setMessage(`Updated ${newName}`);
+            setTimeout(() => {
+              setMessage(null);
+            }, 3000);
+            setNewName("");
+            setNewNumber("");
+          })
+          .catch((error) => {
+            setMessage(
+              `Information of '${newName}' was already removed from server`
+            );
+            setMessageClass("delete");
+            setTimeout(() => {
+              setMessage(null);
+            }, 5000);
+            setPersons(persons.filter((n) => n.id !== nameId));
+            setNewName("");
+            setNewNumber("");
+          });
       }
     } else {
       // Add new name to phonebook
