@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import nameService from "./services/persons";
 
 const Filter = (props) => {
   return (
@@ -63,11 +63,10 @@ const App = () => {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((response) => {
-      setPersons(response.data);
+    nameService.getAll().then((initialPersons) => {
+      setPersons(initialPersons);
     });
   }, []);
-  console.log("render", persons.length, "persons");
 
   const handleNameChange = (event) => {
     //console.log(event.target.value);
@@ -96,10 +95,13 @@ const App = () => {
         number: newNumber,
         id: persons.length + 1,
       };
-      setPersons([...persons, nameObject]);
-      //setPersons(persons.concat(nameObject));
-      setNewName("");
-      setNewNumber("");
+
+      nameService.create(nameObject).then((returnedNote) => {
+        setPersons([...persons, returnedNote]);
+        //setPersons(persons.concat(nameObject));
+        setNewName("");
+        setNewNumber("");
+      });
       console.log("new name added");
     }
   };
