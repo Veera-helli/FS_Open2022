@@ -82,13 +82,23 @@ const App = () => {
       }
     } else {
       // Add new name to phonebook
-      nameService.create(nameObject).then((returnedName) => {
-        setPersons([...persons, returnedName]);
-        setMessageClass("notif");
-        setMessage(`Added ${newName}`);
-        messageTimeout();
-        clearInputs();
-      });
+      nameService
+        .create(nameObject)
+        .then((returnedName) => {
+          setPersons([...persons, returnedName]);
+          setMessageClass("notif");
+          setMessage(`Added ${newName}`);
+          messageTimeout();
+          clearInputs();
+        })
+        .catch((error) => {
+          // pääset käsiksi palvelimen palauttamaan virheilmoitusolioon näin
+          console.log(error.response.data);
+          setMessageClass("delete");
+          setMessage(error.response.data.error);
+          messageTimeout();
+          clearInputs();
+        });
     }
   };
 
