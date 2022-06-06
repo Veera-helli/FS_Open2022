@@ -4,27 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Veera-helli/FS_Osa3.git"
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Veera-helli/FS_Osa3/issues"
-  },
-  "homepage": "https://github.com/Veera-helli/FS_Osa3#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "mongoose": "^6.3.5"
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.3.1"
   },
   "devDependencies": {
+    "eslint": "^8.14.0",
     "nodemon": "^2.0.16"
   }
 }
