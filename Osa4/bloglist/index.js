@@ -5,7 +5,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const Person = require("./models/blog");
+const Blog = require("./models/blog");
 const server = http.createServer(app);
 const config = require("./utils/config");
 const logger = require("./utils/logger");
