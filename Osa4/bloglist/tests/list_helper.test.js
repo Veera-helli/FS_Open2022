@@ -98,3 +98,18 @@ describe('most blogs', () => {
     expect(result).toEqual({});
   });
 });
+
+describe('most likes', () => {
+  test('when list has only one blog, equals the blogger of that', () => {
+    const result = listHelper.mostLikes(listWithOneBlog);
+    expect(result).toEqual({ author: 'Edsger W. Dijkstra', likes: 5 });
+  });
+  test('when list has many blogs, equals the most liked blogger', () => {
+    const result = listHelper.mostLikes(listWithManyBlogs);
+    expect(result).toEqual({ author: 'Edsger W. Dijkstra', likes: 17 });
+  });
+  test('when list has no blogs, equals to empty object', () => {
+    const result = listHelper.mostLikes([]);
+    expect(result).toEqual({});
+  });
+});

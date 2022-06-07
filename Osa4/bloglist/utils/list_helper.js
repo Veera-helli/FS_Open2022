@@ -41,9 +41,37 @@ const mostBlogs = (bloglist) => {
   return mostBlogger;
 };
 
+const mostLikes = (bloglist) => {
+  // _.groupBy(objects, 'author');
+  // _.sumBy(objects, 'likes');
+
+  const bloggerObj = lodash.groupBy(bloglist, 'author');
+  const bloggerObjWithLikes = lodash.mapValues(bloggerObj, function (o) {
+    const likeAmount = lodash.sumBy(o, function (p) {
+      return p.likes;
+    });
+    return likeAmount;
+  });
+
+  const reducer = (mostBlogger, item) => {
+    return mostBlogger.likes >= item.likes ? mostBlogger : item;
+  };
+
+  const bestBlogger = lodash
+    .toPairs(bloggerObjWithLikes)
+    .map((p) => ({
+      author: p[0],
+      likes: p[1],
+    }))
+    .reduce(reducer, {});
+  //console.log(JSON.stringify(bestBlogger));
+  return bestBlogger;
+};
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
   mostBlogs,
+  mostLikes,
 };
