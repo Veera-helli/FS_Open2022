@@ -29,7 +29,7 @@ const mostBlogs = (bloglist) => {
     return mostBlogger.blogs >= item.blogs ? mostBlogger : item;
   };
 
-  const ret = Object.entries(bloggerObj)
+  const mostBlogger = Object.entries(bloggerObj)
     .map((p) => ({
       author: p[0],
       blogs: p[1],
@@ -38,7 +38,7 @@ const mostBlogs = (bloglist) => {
 
   //console.log(`length ${bloglist.length}: ${JSON.stringify(ret)}`);
 
-  return ret;
+  return mostBlogger;
 };
 
 module.exports = {
