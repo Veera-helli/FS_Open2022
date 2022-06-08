@@ -126,6 +126,36 @@ describe('deleting blogs', () => {
   });
 });
 
+// 4.14
+describe('updating blogs', () => {
+  test('succeeds with status code 204 if id is valid', async () => {
+    const startBlogs = await helper.blogsInDb();
+    const blogToUpdate = startBlogs[0];
+
+    const updatedBlog = {
+      likes: 34,
+    };
+
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(updatedBlog)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    const blogsAtEnd = await helper.blogsInDb();
+
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length);
+
+    const titles = blogsAtEnd.map((r) => r.title);
+
+    expect(titles).toContain(blogToUpdate.title);
+
+    const likes = blogsAtEnd.find((blog) => blog.likes === updatedBlog.likes);
+
+    expect(likes).toBeDefined();
+  });
+});
+
 afterAll(() => {
   mongoose.connection.close();
 });
