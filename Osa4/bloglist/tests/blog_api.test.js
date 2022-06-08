@@ -28,53 +28,102 @@ test('ids are defined', async () => {
   blogs.forEach((blog) => expect(blog.id).toBeDefined());
 });
 
-// 4.10
-test('a valid note can be added ', async () => {
-  const newBlog = {
-    title: 'Adding blog',
-    author: 'Will Addthis',
-    url: 'https://reactpatterns.com/',
-    likes: 0,
-  };
+describe('adding blogs', () => {
+  // 4.10
+  test('a valid note can be added ', async () => {
+    const newBlog = {
+      title: 'Adding blog',
+      author: 'Will Addthis',
+      url: 'https://reactpatterns.com/',
+      likes: 0,
+    };
 
-  await api
-    .post('/api/blogs')
-    .send(newBlog)
-    .expect(201)
-    .expect('Content-Type', /application\/json/);
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/);
 
-  const blogsAtEnd = await helper.blogsInDb();
-  expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1);
+    const blogsAtEnd = await helper.blogsInDb();
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1);
 
-  const titles = blogsAtEnd.map((n) => n.title);
-  expect(titles).toContain('Adding blog');
+    const titles = blogsAtEnd.map((n) => n.title);
+    expect(titles).toContain('Adding blog');
+  });
+
+  // 4.11
+  test('blog without likes has default likes of 0', async () => {
+    const newBlog = {
+      title: 'I have no likes',
+      author: 'Will Addthis',
+      url: 'https://reactpatterns.com/',
+    };
+
+    const savedBlog = await api.post('/api/blogs').send(newBlog).expect(201);
+    console.log(JSON.parse(savedBlog.text));
+    expect(JSON.parse(savedBlog.text).likes).toEqual(0);
+  });
+
+  // 4.12
+  test('blog without title and url is not added', async () => {
+    const newBlog = {
+      author: 'Will Addthis',
+      likes: 0,
+    };
+
+    await api.post('/api/blogs').send(newBlog).expect(400);
+
+    const blogsAtEnd = await helper.blogsInDb();
+
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length);
+  });
+
+  //extra
+  test('blog without title and with url is added', async () => {
+    const newBlog = {
+      author: 'Will Addthis',
+      url: 'https://reactpatterns.com/',
+      likes: 0,
+    };
+
+    await api.post('/api/blogs').send(newBlog).expect(201);
+
+    const blogsAtEnd = await helper.blogsInDb();
+
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1);
+  });
+
+  //extra
+  test('blog with title and without url is added', async () => {
+    const newBlog = {
+      title: 'This is title',
+      author: 'Will Addthis',
+      likes: 0,
+    };
+
+    await api.post('/api/blogs').send(newBlog).expect(201);
+
+    const blogsAtEnd = await helper.blogsInDb();
+
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1);
+  });
 });
 
-// 4.11
-test('blog without likes has default likes of 0', async () => {
-  const newBlog = {
-    title: 'I have no likes',
-    author: 'Will Addthis',
-    url: 'https://reactpatterns.com/',
-  };
+describe('deleting blogs', () => {
+  test('succeeds with status code 204 if id is valid', async () => {
+    const startBlogs = await helper.blogsInDb();
+    const blogToDelete = startBlogs[0];
 
-  const savedBlog = await api.post('/api/blogs').send(newBlog).expect(201);
-  console.log(JSON.parse(savedBlog.text));
-  expect(JSON.parse(savedBlog.text).likes).toEqual(0);
-});
+    await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
 
-test('blog without title is not added', async () => {
-  const newBlog = {
-    author: 'Will Addthis',
-    url: 'https://reactpatterns.com/',
-    likes: 0,
-  };
+    const blogsAtEnd = await helper.blogsInDb();
 
-  await api.post('/api/blogs').send(newBlog).expect(400);
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1);
 
-  const blogsAtEnd = await helper.blogsInDb();
+    const titles = blogsAtEnd.map((r) => r.title);
 
-  expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length);
+    expect(titles).not.toContain(blogToDelete.title);
+  });
 });
 
 afterAll(() => {

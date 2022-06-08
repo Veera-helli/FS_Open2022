@@ -4,13 +4,17 @@ require('dotenv').config();
 const blogSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    required: function () {
+      return !this.url;
+    },
   },
-  author: {
+  author: String,
+  url: {
     type: String,
-    required: true,
+    required: function () {
+      return !this.title;
+    },
   },
-  url: String,
   likes: { type: Number, default: 0 },
 });
 
