@@ -109,6 +109,7 @@ describe('adding blogs', () => {
   });
 });
 
+// 4.13
 describe('deleting blogs', () => {
   test('succeeds with status code 204 if id is valid', async () => {
     const startBlogs = await helper.blogsInDb();
