@@ -15,6 +15,10 @@ const blogSchema = new mongoose.Schema({
       return !this.title;
     },
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
   likes: { type: Number, default: 0 },
 });
 
