@@ -30,3 +30,8 @@ content-type: application/json
   "username": "User3",
   "password": "78910"
 }
+
+###
+DELETE  http://localhost:3003/api/blogs/62a98ab8e1e2865ccefd9df6 HTTP/1.1
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXIzIiwiaWQiOiI2MmE5OGM3OWI5YzhiNjVlNTM3NWNmYzUiLCJpYXQiOjE2NTUyNzg3MTd9.I_AOSXBryw0xXXlWFxxxNTvcMcKHLYwN9ykH3Arkgjo
