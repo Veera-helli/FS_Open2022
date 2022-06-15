@@ -1,12 +1,22 @@
 GET http://localhost:3003/api/blogs
 
 ###
-POST http://localhost:3003/api/blogs/ HTTP/1.1
+POST http://localhost:3003/api/blogs/ 
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXIxIiwiaWQiOiI2MmEzMjdlYmVmM2QxZDFhNzk4MjEwZGQiLCJpYXQiOjE2NTQ4NjM2NzJ9.agV16hLS7MjCkFQrl_cMAndc4zdPNYLEGIfJSvmv2e0
+
+{
+  "title": "Mexico",
+  "author": "Annie",
+  "url": "some.com",
+  "likes": 8
+}
+
+###
+POST http://localhost:3003/api/login/ HTTP/1.1
 content-type: application/json
 
 {
-  "title": "String",
-  "author": "String",
-  "url": "String",
-  "likes": 198,
+  "username": "User1",
+  "password": "1234"
 }
