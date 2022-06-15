@@ -3,10 +3,10 @@ GET http://localhost:3003/api/blogs
 ###
 POST http://localhost:3003/api/blogs 
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXIzIiwiaWQiOiI2MmE5OGM3OWI5YzhiNjVlNTM3NWNmYzUiLCJpYXQiOjE2NTUyNzg3MTd9.I_AOSXBryw0xXXlWFxxxNTvcMcKHLYwN9ykH3Arkgjo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXI0IiwiaWQiOiI2MmE5Y2U2M2FkNmQyNWZkNzdjY2ZkNTkiLCJpYXQiOjE2NTUyOTU2MzZ9.zDVtzSUuLdmP5JXEh9C8gTrE3Hs1s82ZjfkPtz-ybyE
 
 {
-  "title": "Croatia trip",
+  "title": "Testing blog",
   "author": "Natalie",
   "url": "some.com",
   "likes": 8
@@ -17,9 +17,9 @@ POST http://localhost:3003/api/users/ HTTP/1.1
 content-type: application/json
 
 {
-  "name": "Millie",
-  "username": "User3",
-  "password": "78910"
+  "name": "Emily",
+  "username": "User6",
+  "password": "01239"
 }
 
 ###
@@ -27,11 +27,11 @@ POST http://localhost:3003/api/login/ HTTP/1.1
 content-type: application/json
 
 {
-  "username": "User3",
-  "password": "78910"
+  "username": "User4",
+  "password": "01234"
 }
 
 ###
-DELETE  http://localhost:3003/api/blogs/62a98ab8e1e2865ccefd9df6 HTTP/1.1
+DELETE  http://localhost:3003/api/blogs/62a9e1e346e1a0c86b4f535f HTTP/1.1
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXIzIiwiaWQiOiI2MmE5OGM3OWI5YzhiNjVlNTM3NWNmYzUiLCJpYXQiOjE2NTUyNzg3MTd9.I_AOSXBryw0xXXlWFxxxNTvcMcKHLYwN9ykH3Arkgjo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXI0IiwiaWQiOiI2MmE5Y2U2M2FkNmQyNWZkNzdjY2ZkNTkiLCJpYXQiOjE2NTUyOTU2MzZ9.zDVtzSUuLdmP5JXEh9C8gTrE3Hs1s82ZjfkPtz-ybyE

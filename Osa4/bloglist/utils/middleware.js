@@ -31,14 +31,14 @@ const errorHandler = (error, request, response, next) => {
 };
 
 const tokenExtractor = (request, response, next) => {
-  console.log('Extracting token');
+  logger.info('Extracting token');
   const authorization = request.get('authorization');
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    console.log('Got token');
+    logger.info('Got token');
     request.token = authorization.substring(7);
     next();
   } else {
-    console.log('No auth');
+    logger.info('No auth');
     next();
   }
 };
