@@ -18,12 +18,12 @@ blogsRouter.get('/', async (request, response) => {
   response.json(blogs);
 });
 
-blogsRouter.post('/', async (request, response, next) => {
+blogsRouter.post('/', async (request, response) => {
   const body = request.body;
 
   const decodedToken = jwt.verify(request.token, process.env.SECRET);
-  //console.log(decodedToken.id);
-  if (!decodedToken || !decodedToken.id) {
+  console.log(decodedToken.id);
+  if (!decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' });
   }
   const user = await User.findById(decodedToken.id);
@@ -42,7 +42,7 @@ blogsRouter.post('/', async (request, response, next) => {
     await user.save();
     response.status(201).json(savedBlog);
   } catch (exception) {
-    next(exception);
+    console.log('exception');
   }
 });
 

@@ -1,13 +1,13 @@
 GET http://localhost:3003/api/blogs
 
 ###
-POST http://localhost:3003/api/blogs/ 
+POST http://localhost:3003/api/blogs 
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXIyIiwiaWQiOiI2MmE5OGE5M2UxZTI4NjVjY2VmZDlkZjIiLCJpYXQiOjE2NTUyNzgyMzR9.aQkxFxpvb5cLxtXH0Y3AV7xSqM5KCIsEQx6Kl8m19io
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXIzIiwiaWQiOiI2MmE5OGM3OWI5YzhiNjVlNTM3NWNmYzUiLCJpYXQiOjE2NTUyNzg3MTd9.I_AOSXBryw0xXXlWFxxxNTvcMcKHLYwN9ykH3Arkgjo
 
 {
-  "title": "London Calling",
-  "author": "Robbie",
+  "title": "Croatia trip",
+  "author": "Natalie",
   "url": "some.com",
   "likes": 8
 }
@@ -17,9 +17,9 @@ POST http://localhost:3003/api/users/ HTTP/1.1
 content-type: application/json
 
 {
-  "name": "Manny",
-  "username": "User2",
-  "password": "4567"
+  "name": "Millie",
+  "username": "User3",
+  "password": "78910"
 }
 
 ###
@@ -27,6 +27,6 @@ POST http://localhost:3003/api/login/ HTTP/1.1
 content-type: application/json
 
 {
-  "username": "User2",
-  "password": "4567"
+  "username": "User3",
+  "password": "78910"
 }

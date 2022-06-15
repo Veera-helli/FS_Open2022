@@ -21,6 +21,10 @@ const errorHandler = (error, request, response, next) => {
     return response.status(401).json({
       error: 'invalid token',
     });
+  } else if (error.name === 'TokenExpiredError') {
+    return response.status(401).json({
+      error: 'token expired',
+    });
   }
   logger.error(error.message);
   next(error);
@@ -30,9 +34,13 @@ const tokenExtractor = (request, response, next) => {
   console.log('Extracting token');
   const authorization = request.get('authorization');
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    return authorization.substring(7);
+    console.log('Got token');
+    request.token = authorization.substring(7);
+    next();
+  } else {
+    console.log('No auth');
+    next();
   }
-  next();
 };
 
 module.exports = {
