@@ -11,7 +11,7 @@ usersRouter.get('/', async (request, response) => {
 usersRouter.post('/', async (request, response) => {
   const { username, name, password } = request.body;
   if (username === undefined) {
-    console.log('missing un');
+    console.log('missing username');
     return response.status(400).json({
       error: 'username missing',
     });
