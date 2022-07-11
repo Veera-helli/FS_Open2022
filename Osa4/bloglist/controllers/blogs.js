@@ -4,15 +4,6 @@ const Blog = require('../models/blog');
 const User = require('../models/user');
 require('dotenv').config();
 
-// const getTokenFrom = (request) => {
-//   console.log('Getting token');
-//   const authorization = request.get('authorization');
-//   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-//     return authorization.substring(7);
-//   }
-//   return null;
-// };
-
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 });
   response.json(blogs);
