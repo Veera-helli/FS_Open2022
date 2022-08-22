@@ -8,13 +8,13 @@ const Menu = () => {
 
   return (
     <div>
-      <Link href='#' style={padding}>
+      <Link to='/' style={padding}>
         anecdotes
       </Link>
-      <Link href='#' style={padding}>
+      <Link to='/create-new' style={padding}>
         create new
       </Link>
-      <Link href='#' style={padding}>
+      <Link to='/about' style={padding}>
         about
       </Link>
     </div>
@@ -154,14 +154,13 @@ const App = () => {
 
   return (
     <Router>
-      <Menu />
       <h1>Software anecdotes</h1>
+      <Menu />
       <Routes>
-        <Route path='/create-new' element={<CreateNew addNew={addNew} />} />
-        <Route path='/about' element={<About />} />
         <Route path='/' element={<AnecdoteList anecdotes={anecdotes} />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/create-new' element={<CreateNew addNew={addNew} />} />
       </Routes>
-
       <Footer />
     </Router>
   );
