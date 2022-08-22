@@ -1,6 +1,6 @@
 # Full Stack Open 2022 Course Tasks
 
-This repository contains the tasks from parts 1, 2 and 4 from the Full Stack Open course organized by Helsinki University. Currently, parts 3 and 5 can be found from separate repositories.
+This repository contains the tasks from parts 1, 2 and 4 from the Full Stack Open course organized by Helsinki University. Currently, parts 3, 5 and 6 can be found from separate repositories.
 
 # Projects in Part 1 / Osa 1
 
