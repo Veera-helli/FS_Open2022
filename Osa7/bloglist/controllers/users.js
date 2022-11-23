@@ -1,56 +1,56 @@
-const bcrypt = require('bcrypt');
-const usersRouter = require('express').Router();
-const User = require('../models/user');
+const bcrypt = require("bcrypt")
+const usersRouter = require("express").Router()
+const User = require("../models/user")
 
-usersRouter.get('/', async (request, response) => {
-  const users = await User.find({}).populate('blogs');
+usersRouter.get("/", async (request, response) => {
+  const users = await User.find({}).populate("blogs")
 
-  response.json(users);
-});
+  response.json(users)
+})
 
-usersRouter.post('/', async (request, response) => {
-  const { username, name, password } = request.body;
+usersRouter.post("/", async (request, response) => {
+  const { username, name, password } = request.body
   if (username === undefined) {
-    console.log('missing username');
+    console.log("missing username")
     return response.status(400).json({
-      error: 'username missing',
-    });
+      error: "username missing",
+    })
   }
-  const users = await User.find({});
+  const users = await User.find({})
   //console.log(JSON.stringify(users));
   if (users.map((p) => p.username).includes(username)) {
     //console.log('not unique un');
     return response.status(400).json({
-      error: 'username must be unique',
-    });
+      error: "username must be unique",
+    })
   }
 
   if (name === undefined) {
-    console.log('undefined name');
+    console.log("undefined name")
     return response.status(400).json({
-      error: 'name missing',
-    });
+      error: "name missing",
+    })
   }
 
   if (password.length < 3) {
-    console.log('too short');
+    console.log("too short")
     return response.status(400).json({
-      error: 'too short password',
-    });
+      error: "too short password",
+    })
   }
 
-  const saltRounds = 10;
-  const passwordHash = await bcrypt.hash(password, saltRounds);
+  const saltRounds = 10
+  const passwordHash = await bcrypt.hash(password, saltRounds)
 
   const user = new User({
     username,
     name,
     passwordHash,
-  });
+  })
 
-  const savedUser = await user.save();
+  const savedUser = await user.save()
 
-  response.status(201).json(savedUser);
-});
+  response.status(201).json(savedUser)
+})
 
-module.exports = usersRouter;
+module.exports = usersRouter

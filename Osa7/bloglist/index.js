@@ -1,12 +1,12 @@
-const app = require('./app');
-const http = require('http');
+const app = require("./app")
+const http = require("http")
 // const express = require('express');
 // const cors = require('cors');
 // require('dotenv').config();
 
 // const Blog = require('./models/blog');
-const config = require('./utils/config');
-const logger = require('./utils/logger');
+const config = require("./utils/config")
+const logger = require("./utils/logger")
 
 // app.use(cors());
 // app.use(express.json());
@@ -24,7 +24,7 @@ const logger = require('./utils/logger');
 //     response.status(201).json(result);
 //   });
 // });
-const server = http.createServer(app);
+const server = http.createServer(app)
 server.listen(config.PORT, () => {
-  logger.info(`Server running on port ${config.PORT}`);
-});
+  logger.info(`Server running on port ${config.PORT}`)
+})
