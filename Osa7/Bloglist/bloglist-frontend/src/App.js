@@ -107,13 +107,15 @@ const App = () => {
   return (
     <Router>
       <section>
-        <Link to='/'>HOME</Link>
-        <Link to='/users'>USERS</Link>
+        <Link className='link' to='/'>
+          HOME
+        </Link>
+        <Link className='link' to='/users'>
+          USERS
+        </Link>
       </section>
 
-      <header>
-        <h2>Blogs</h2>
-      </header>
+      <h2 className='title'>Blogs</h2>
 
       <div>{user ? loggedUser() : loginForm()}</div>
 
@@ -122,7 +124,7 @@ const App = () => {
         <Route path='/' element={<div>{blogsList()}</div>} />
       </Routes>
 
-      <div>
+      <div style={{ padding: '50px 10px 20px 0px' }}>
         <i>Bloglist app, Veera Ihalainen 2022</i>
       </div>
     </Router>
